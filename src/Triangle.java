@@ -1,5 +1,5 @@
 /** @author Justin Thein
- *  Solution to Problem 2 on Google Foobar.
+ *  Solution to one of the two Problem 2 parts on Google Foobar.
  * */
 public class Triangle {
 
