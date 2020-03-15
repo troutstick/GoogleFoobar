@@ -4,9 +4,7 @@
 
 import java.math.BigInteger;
 import org.junit.Test;
-import org.junit.Rule;
-import org.junit.rules.Timeout;
-import static org.junit.rules.Timeout.seconds;
+
 import static org.junit.Assert.*;
 
 public class BombBaby {
@@ -56,20 +54,20 @@ public class BombBaby {
 
     /** Bad recursive attempt; the problem is actually not recursive at all.
      *  This solution is prone to stock overflow errors. */
-    private static BigInteger numGenerations(BigInteger x, BigInteger y, BigInteger reps) {
+    private static BigInteger numGenerationsRecursive(BigInteger x, BigInteger y, BigInteger reps) {
         if (x.equals(one) && y.equals(one)) {
             return reps;
         } else if (x.compareTo(one) < 0 || y.compareTo(one) < 0) {
             return null;
         } else if ((x.subtract(one)).mod(y).equals(zero) && !x.equals(one)) {
             reps = reps.add((x.subtract(one)).divide(y));
-            return numGenerations(one, y, reps);
+            return numGenerationsRecursive(one, y, reps);
         } else if ((y.subtract(one)).mod(x).equals(zero) && !y.equals(one)) {
             reps = reps.add(y.subtract(one).divide(y));
-            return numGenerations(x, one, reps);
+            return numGenerationsRecursive(x, one, reps);
         }
-        BigInteger path1 = numGenerations(x.subtract(y), y, reps.add(one));
-        BigInteger path2 = numGenerations(x, y.subtract(x), reps.add(one));
+        BigInteger path1 = numGenerationsRecursive(x.subtract(y), y, reps.add(one));
+        BigInteger path2 = numGenerationsRecursive(x, y.subtract(x), reps.add(one));
         if (path1 == null) {
             return path2;
         } else if (path2 == null) {
@@ -118,6 +116,35 @@ public class BombBaby {
         System.out.println(solution(x.toString(), y.toString()));
     }
 
+    /** Measure how long each solution takes to arrive at solution for */
+    private static void measureTime(BigInteger x, BigInteger y) {
+        BigInteger ans = zero;
+        int num = 1000;
+        long iterStart = System.nanoTime();
+        for (int i = 0; i < num; i++) {
+            numGenerations(x, y);
+        }
+        long iterEnd = System.nanoTime();
+        long iterTime = (iterEnd - iterStart) / 1000000;
+
+        ans = numGenerations(x, y);
+        System.out.println("Inputs: " + x + ", " + y);
+        System.out.println("Solution: " + ans);
+
+        System.out.println("Iterative solution takes " + iterTime + " milliseconds" +
+                " per " + num + " iterations");
+
+        long recursiveStart = System.nanoTime();
+        for (int i = 0; i < num; i++) {
+            numGenerationsRecursive(x, y, zero);
+        }
+        long recursiveEnd = System.nanoTime();
+        long recTime = (recursiveEnd - recursiveStart) / 1000000;
+
+        System.out.println("Recursive solution takes " + recTime + " milliseconds" +
+                " per " + num + " iterations");
+    }
+
     /** A test for the problem. */
     @Test
     public void test() {
@@ -142,5 +169,8 @@ public class BombBaby {
     }
 
     public static void main(String[] args) {
+        BigInteger x = new BigInteger("1346269");
+        BigInteger y = new BigInteger("21783009");
+        measureTime(x, y);
     }
 }
