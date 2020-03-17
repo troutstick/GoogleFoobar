@@ -9,6 +9,7 @@ My solutions to Google Foobar problems.
 ### Triangle.java
 * Cleverly dealing with triangular numbers.
   * An optimized solution probably works in constant time; my current solution is linear.
+  * Update 3/16/20: Works in theta(1) now, yay!
 ### CodedMessages.java
 * Given an array of digits, find the largest number consisting of those digits that is divisible by 3
 
