@@ -7,7 +7,7 @@ public class Triangle {
      *
      *  Calculates the output of a function f(x, y), where x and y are positive integers,
      *  and f(1, 1) outputs 1. The function lists all positive integers in diagonal rows
-     *  pointing to the upper left, and generally, f(x, y) = f(x + 1, y - 1) + 1.
+     *  increasing to the upper left, and generally, f(x, y) = f(x + 1, y - 1) + 1.
      *
      *  I initially tried to solve the problem using recursion, which led to stack overflow
      *  errors.
