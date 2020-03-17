@@ -20,5 +20,5 @@ My solutions to Google Foobar problems.
   
 ### BombBaby.java
   * Starting from (1, 1), each turn increase x by y or y by x
-  * Find the minimum number of turns to get to some point (m, f), which can be any positive integer
+  * Find the minimum number of turns to get to some point (x, y), which can be any pair of positive integers
     * If no solution, state as such
