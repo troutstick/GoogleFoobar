@@ -12,20 +12,20 @@ public class Triangle {
      *  I initially tried to solve the problem using recursion, which led to stack overflow
      *  errors.
      *
-     *  TODO: Constant time solution.
+     *  I arrived at my constant time solution by taking advantage of the triangle number summation;
+     *  it's more obvious along the x axis but can be seen on the y axis as well.
      *  */
     private static long triangle(long x, long y) {
-        long answer = 0;
-        while (y > 1) {
-            answer += y + x - 2;
-            y--;
-        }
-        answer += (x * (x + 1)) / 2;
-        return answer;
+        return (x - 2) * (y - 1) - 1 + triangleNumber(x) + triangleNumber(y);
+    }
+
+    /** The result of summing all integers from 1 to x. */
+    private static long triangleNumber(long x) {
+        return ((x * (x + 1)) / 2);
     }
 
     /** Some basic sanity checking. */
     public static void main(String[] args) {
-        System.out.println(triangle(5, 10));
+        System.out.println(triangle(5, 10)); // 96
     }
 }
