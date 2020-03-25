@@ -30,14 +30,14 @@ public class Staircase {
      *  positive and sum to n.
      *  */
     public static int solution(int n) {
-        int maxSteps = maxStepsLeft(n, 1);
-        return numStaircases(n, 1, maxSteps);
+        return numStaircases(n, 1);
     }
 
     /** A recursive helper which knows how many steps it has left and
      *  requires its smallest step to be a certain height.
      *  */
-    private static int numStaircases(int numBricks, int smallestStep, int maxSteps) {
+    private static int numStaircases(int numBricks, int smallestStep) {
+        int maxSteps = maxStepsLeft(numBricks, smallestStep);
         if (maxSteps == 1) {
             return 1;
         } else if (smallestStep > numBricks) {
@@ -49,7 +49,7 @@ public class Staircase {
         for (int stepSize = smallestStep; stepSize <= numBricks; stepSize++) {
             int bricksLeft = numBricks - stepSize;
             int nextStep = stepSize + 1;
-            numStaircases += numStaircases(bricksLeft, nextStep, maxStepsLeft(bricksLeft, nextStep));
+            numStaircases += numStaircases(bricksLeft, nextStep);
         }
         return numStaircases;
     }
@@ -87,13 +87,19 @@ public class Staircase {
         assertEquals(16, maxStepsLeft(169, 3));
         assertEquals(15, maxStepsLeft(167, 3));
         assertEquals(1, maxStepsLeft(69, 35));
-        assertEquals(1, maxStepsLeft(69, 34));
-        assertEquals(2, maxStepsLeft(69, 33));
+        assertEquals(2, maxStepsLeft(69, 34));
     }
 
+    @Test
     public void testStaircase() {
         assertEquals(1, solution(3));
         assertEquals(2, solution(5));
+        assertEquals(2, numStaircases(69, 33));
+
+    }
+
+    public void testStaircaseLong() {
         assertEquals(487067745, solution(200));
     }
+
 }
