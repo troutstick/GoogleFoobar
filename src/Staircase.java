@@ -32,8 +32,10 @@ public class Staircase {
      *  start from 1 and increment by 1 until the number of bricks is exhausted.
      *
      *  One must conclude that the number of steps in the staircase <= LENGTH.
+     *
+     *  The answer is rounded down to the nearest integer.
      *  */
     private static int maxStepsLeft(int numBricks) {
-
+        return (int) (Math.sqrt((8 * numBricks) + 1) - 1) / 2;
     }
 }
