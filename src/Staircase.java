@@ -24,6 +24,15 @@ public class Staircase {
      *  positive and sum to n.
      *  */
     public static int solution(int n) {
+        int maxSteps = maxStepsLeft(n);
+        int prevStepSize = 0;
+        int bricksLeft = n;
+        for (int currStep = 0; currStep < maxSteps; currStep++) {
+            for (int stepSize = prevStepSize + 1; stepSize < bricksLeft; stepSize++) {
+
+            }
+        }
+
         // should output a long
         return 0;
     }
