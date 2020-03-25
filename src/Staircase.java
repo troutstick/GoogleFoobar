@@ -1,6 +1,9 @@
 import org.junit.Test;
 import static org.junit.Assert.*;
 
+import java.util.HashSet;
+import java.util.Set;
+
 /** @author Justin Thein
  *  My solution to one of the problems for Problem 3 of Google Foobar.
  *  Find the number of "staircase" designs given a certain number of bricks to build them with.
@@ -8,14 +11,17 @@ import static org.junit.Assert.*;
 public class Staircase {
     /** @param n: the number of bricks allowed to build a staircase with.
      *  Constraints: 3 <= n <= 200
+     *
      *  Rules:
-     *          Every step must consist of a unique number of bricks.
-     *          Every successive step must be taller than the last.
-     *  Example:
-     *          #
-     *          #
-     *          ##
-     *          31
+     *  - Every step must consist of a unique number of bricks.
+     *  - Every successive step must be taller than the last.
+     *
+     *  Example staircase:
+     *      #
+     *      #
+     *      ##
+     *      31
+     *
      *  @return the number of unique steps
      *  The only solution to n == 4; one step has 1 brick, the other has 3.
      *  In this case, solution(4) == 1.
@@ -25,16 +31,24 @@ public class Staircase {
      *  */
     public static int solution(int n) {
         int maxSteps = maxStepsLeft(n);
-        int prevStepSize = 0;
-        int bricksLeft = n;
-        for (int currStep = 0; currStep < maxSteps; currStep++) {
-            for (int stepSize = prevStepSize + 1; stepSize < bricksLeft; stepSize++) {
+        return numStaircases(n, 1, maxSteps);
+    }
 
-            }
+    /** A recursive helper which knows how many steps it has left and
+     *  requires its smallest step to be a certain height.
+     *  */
+    private static int numStaircases(int numBricks, int smallestStep, int maxSteps) {
+        if (maxSteps == 1) {
+
         }
 
-        // should output a long
-        return 0;
+        int numStaircases = 0;
+        Set<Integer> staircase = new HashSet<>();
+        for (int stepSize = smallestStep; stepSize <= numBricks; stepSize++) {
+            int bricksLeft = numBricks - stepSize;
+            numStaircases += numStaircases(bricksLeft, stepSize + 1, maxStepsLeft(bricksLeft));
+        }
+
     }
 
     /** Based on triangle number formula. For NUMBRICKS bricks, one can
@@ -47,8 +61,12 @@ public class Staircase {
      *  One must conclude that the number of steps in the staircase <= LENGTH.
      *
      *  The answer is rounded down to the nearest integer.
+     *
+     *  If the MINSTEPSIZE > 1, the NUMBRICKS that must be used goes up by
+     *  (MINSTEPSIZE - 1) * LENGTH. Accounting for this, the formula becomes
+     *  (sqrt((1 - 2 * MINSTEPSIZE)^2 + 8*NUMBRICKS) - 2 * MINSTEPSIZE + 1) / 2
      *  */
-    private static int maxStepsLeft(int numBricks) {
+    private static int maxStepsLeft(int numBricks, int minStepSize) {
         return (int) (Math.sqrt((8 * numBricks) + 1) - 1) / 2;
     }
 
