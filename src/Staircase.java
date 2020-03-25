@@ -4,18 +4,24 @@
  *  */
 public class Staircase {
     /** @param n: the number of bricks allowed to build a staircase with.
-     * Rules:
+     *  Constraints: 3 <= n <= 200
+     *  Rules:
      *          Every step must consist of a unique number of bricks.
      *          Every successive step must be taller than the last.
-     * Example:
+     *  Example:
      *          #
      *          #
      *          ##
      *          31
-     * @return the number of unique steps
-     * The only solution to n == 4; one step has 1 brick, the other has 3.
-     * In this case, solution(4) == 1.
-     * */
+     *  @return the number of unique steps
+     *  The only solution to n == 4; one step has 1 brick, the other has 3.
+     *  In this case, solution(4) == 1.
+     *
+     *  REPHRASED: Find the number of unique integer sets whose elements are
+     *  positive and sum to n.
+     *  */
     public static int solution(int n) {
+
+
     }
 }
