@@ -39,7 +39,9 @@ public class Staircase {
      *  */
     private static int numStaircases(int numBricks, int smallestStep, int maxSteps) {
         if (maxSteps == 1) {
-
+            return 1;
+        } else if (smallestStep > numBricks) {
+            return 0;
         }
 
         int numStaircases = 0;
@@ -49,7 +51,7 @@ public class Staircase {
             int nextStep = stepSize + 1;
             numStaircases += numStaircases(bricksLeft, nextStep, maxStepsLeft(bricksLeft, nextStep));
         }
-        return 0;
+        return numStaircases;
     }
 
     /** Based on triangle number formula. For NUMBRICKS bricks, one can
@@ -84,5 +86,14 @@ public class Staircase {
         assertEquals(16, maxStepsLeft(168, 3));
         assertEquals(16, maxStepsLeft(169, 3));
         assertEquals(15, maxStepsLeft(167, 3));
+        assertEquals(1, maxStepsLeft(69, 35));
+        assertEquals(1, maxStepsLeft(69, 34));
+        assertEquals(2, maxStepsLeft(69, 33));
+    }
+
+    public void testStaircase() {
+        assertEquals(1, solution(3));
+        assertEquals(2, solution(5));
+        assertEquals(487067745, solution(200));
     }
 }
