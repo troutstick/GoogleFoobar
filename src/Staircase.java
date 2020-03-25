@@ -30,7 +30,18 @@ public class Staircase {
      *  positive and sum to n.
      *  */
     public static int solution(int n) {
-        return numStaircases(n, 1, 0);
+        return numStaircasesBase(n, 1);
+    }
+
+    /** The special case where the smallest step is 1. */
+    private static int numStaircasesBase(int numBricks, int smallestStep) {
+        int numStaircases = 0;
+        for (int stepSize = smallestStep; stepSize <= numBricks / 2; stepSize++) {
+            int bricksLeft = numBricks - stepSize;
+            int nextStep = stepSize + 1;
+            numStaircases += numStaircases(bricksLeft, nextStep, 1);
+        }
+        return numStaircases;
     }
 
     /** A recursive helper which knows how many steps it has left and
@@ -38,7 +49,7 @@ public class Staircase {
      *  */
     private static int numStaircases(int numBricks, int smallestStep, int numSteps) {
         int maxSteps = maxStepsLeft(numBricks, smallestStep);
-        if (smallestStep > numBricks || numBricks < 3 || maxSteps == 0) {
+        if (smallestStep > numBricks || maxSteps == 0) {
             return 0;
         } else if (smallestStep * 2 >= numBricks) {
             return 1;
@@ -97,7 +108,7 @@ public class Staircase {
         assertEquals(1, solution(3));
         assertEquals(1, solution(4));
         assertEquals(2, solution(5));
-        assertEquals(2, numStaircases(69, 33, 0));
+        assertEquals(2, numStaircasesBase(69, 33));
 
     }
 
