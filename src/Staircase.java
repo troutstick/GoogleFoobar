@@ -30,28 +30,28 @@ public class Staircase {
      *  positive and sum to n.
      *  */
     public static int solution(int n) {
-        return numStaircases(n, 1);
+        return numStaircases(n, 1, 0);
     }
 
     /** A recursive helper which knows how many steps it has left and
      *  requires its smallest step to be a certain height.
      *  */
-    private static int numStaircases(int numBricks, int smallestStep) {
+    private static int numStaircases(int numBricks, int smallestStep, int numSteps) {
         int maxSteps = maxStepsLeft(numBricks, smallestStep);
-        if (maxSteps == 1) {
-            return 1;
-        } else if (smallestStep > numBricks) {
+        if (smallestStep > numBricks || numBricks < 3 || maxSteps == 0) {
             return 0;
+        } else if (smallestStep * 2 >= numBricks) {
+            return 1;
         }
-
         int numStaircases = 0;
-        Set<Integer> staircase = new HashSet<>();
-        for (int stepSize = smallestStep; stepSize <= numBricks; stepSize++) {
+        for (int stepSize = smallestStep; stepSize <= numBricks / 2; stepSize++) {
             int bricksLeft = numBricks - stepSize;
             int nextStep = stepSize + 1;
-            numStaircases += numStaircases(bricksLeft, nextStep);
+            numStaircases += numStaircases(bricksLeft, nextStep, numSteps + 1);
         }
-        return numStaircases;
+        numStaircases++;
+        return numStaircases; // the last staircase comes from piling all bricks on the last step
+        // unique integer sets of multiple positive elements
     }
 
     /** Based on triangle number formula. For NUMBRICKS bricks, one can
@@ -88,18 +88,22 @@ public class Staircase {
         assertEquals(15, maxStepsLeft(167, 3));
         assertEquals(1, maxStepsLeft(69, 35));
         assertEquals(2, maxStepsLeft(69, 34));
+        assertEquals(19, maxStepsLeft(200, 1));
+
     }
 
     @Test
     public void testStaircase() {
         assertEquals(1, solution(3));
+        assertEquals(1, solution(4));
         assertEquals(2, solution(5));
-        assertEquals(2, numStaircases(69, 33));
+        assertEquals(2, numStaircases(69, 33, 0));
 
     }
 
+    @Test
     public void testStaircaseLong() {
-        assertEquals(487067745, solution(200));
+        assertEquals(487067745, solution(200)); // we're too big by 1 which means the first base case is off by 1
     }
 
 }
