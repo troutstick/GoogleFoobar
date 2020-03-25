@@ -21,7 +21,19 @@ public class Staircase {
      *  positive and sum to n.
      *  */
     public static int solution(int n) {
+        // should output a long
+    }
 
+    /** Based on triangle number formula. For NUMBRICKS bricks, one can
+     *  build up to LENGTH == (sqrt(1 + (8*NUMBRICKS)) - 1) / 2).
+     *
+     *  This is based on the formula NUMBRICKS == ((LENGTH * (LENGTH + 1)) / 2).
+     *  LENGTH refers to the maximum number of steps that can be built; the steps
+     *  start from 1 and increment by 1 until the number of bricks is exhausted.
+     *
+     *  One must conclude that the number of steps in the staircase <= LENGTH.
+     *  */
+    private static int maxStepsLeft(int numBricks) {
 
     }
 }
