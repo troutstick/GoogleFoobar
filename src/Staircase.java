@@ -30,7 +30,7 @@ public class Staircase {
      *  positive and sum to n.
      *  */
     public static int solution(int n) {
-        int maxSteps = maxStepsLeft(n);
+        int maxSteps = maxStepsLeft(n, 1);
         return numStaircases(n, 1, maxSteps);
     }
 
@@ -46,9 +46,10 @@ public class Staircase {
         Set<Integer> staircase = new HashSet<>();
         for (int stepSize = smallestStep; stepSize <= numBricks; stepSize++) {
             int bricksLeft = numBricks - stepSize;
-            numStaircases += numStaircases(bricksLeft, stepSize + 1, maxStepsLeft(bricksLeft));
+            int nextStep = stepSize + 1;
+            numStaircases += numStaircases(bricksLeft, nextStep, maxStepsLeft(bricksLeft, nextStep));
         }
-
+        return 0;
     }
 
     /** Based on triangle number formula. For NUMBRICKS bricks, one can
@@ -67,15 +68,21 @@ public class Staircase {
      *  (sqrt((1 - 2 * MINSTEPSIZE)^2 + 8*NUMBRICKS) - 2 * MINSTEPSIZE + 1) / 2
      *  */
     private static int maxStepsLeft(int numBricks, int minStepSize) {
-        return (int) (Math.sqrt((8 * numBricks) + 1) - 1) / 2;
+        return (int) (Math.sqrt(Math.pow(1 - 2 * minStepSize, 2) + (8 * numBricks))
+                - (2 * minStepSize)
+                + 1)
+                / 2;
     }
 
     @Test
     public void testMaxStepsLeft() {
-        assertEquals(15, maxStepsLeft(120));
-        assertEquals(14, maxStepsLeft(119));
-        assertEquals(15, maxStepsLeft(121));
-        assertEquals(15, maxStepsLeft(135));
-        assertEquals(16, maxStepsLeft(136));
+        assertEquals(15, maxStepsLeft(120, 1));
+        assertEquals(14, maxStepsLeft(119, 1));
+        assertEquals(15, maxStepsLeft(121, 1));
+        assertEquals(15, maxStepsLeft(135, 1));
+        assertEquals(16, maxStepsLeft(136, 1));
+        assertEquals(16, maxStepsLeft(168, 3));
+        assertEquals(16, maxStepsLeft(169, 3));
+        assertEquals(15, maxStepsLeft(167, 3));
     }
 }
