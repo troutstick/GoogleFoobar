@@ -22,3 +22,8 @@ My solutions to Google Foobar problems.
   * Starting from (1, 1), each turn increase x by y or y by x
   * Find the minimum number of turns to get to some point (x, y), which can be any pair of positive integers
     * If no solution, state as such
+
+### Staircase.java
+  * Find the number of unique sets of positive integers where:
+    * The set has at least 2 elements
+    * The elements together sum to n
