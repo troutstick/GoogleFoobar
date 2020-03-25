@@ -1,3 +1,6 @@
+import org.junit.Test;
+import static org.junit.Assert.*;
+
 /** @author Justin Thein
  *  My solution to one of the problems for Problem 3 of Google Foobar.
  *  Find the number of "staircase" designs given a certain number of bricks to build them with.
@@ -22,6 +25,7 @@ public class Staircase {
      *  */
     public static int solution(int n) {
         // should output a long
+        return 0;
     }
 
     /** Based on triangle number formula. For NUMBRICKS bricks, one can
@@ -37,5 +41,14 @@ public class Staircase {
      *  */
     private static int maxStepsLeft(int numBricks) {
         return (int) (Math.sqrt((8 * numBricks) + 1) - 1) / 2;
+    }
+
+    @Test
+    public void testMaxStepsLeft() {
+        assertEquals(15, maxStepsLeft(120));
+        assertEquals(14, maxStepsLeft(119));
+        assertEquals(15, maxStepsLeft(121));
+        assertEquals(15, maxStepsLeft(135));
+        assertEquals(16, maxStepsLeft(136));
     }
 }
