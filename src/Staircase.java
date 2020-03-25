@@ -1,9 +1,6 @@
 import org.junit.Test;
 import static org.junit.Assert.*;
 
-import java.util.HashSet;
-import java.util.Set;
-
 /** @author Justin Thein
  *  My solution to one of the problems for Problem 3 of Google Foobar.
  *  Find the number of "staircase" designs given a certain number of bricks to build them with.
@@ -26,43 +23,38 @@ public class Staircase {
      *  The only solution to n == 4; one step has 1 brick, the other has 3.
      *  In this case, solution(4) == 1.
      *
-     *  REPHRASED: Find the number of unique integer sets whose elements are
+     *  REPHRASED: Find the number of unique sets of multiple integers which are
      *  positive and sum to n.
      *  */
     public static int solution(int n) {
-        return numStaircasesBase(n, 1);
+        return numStaircases(n, 1);
     }
 
-    /** The special case where the smallest step is 1. */
-    private static int numStaircasesBase(int numBricks, int smallestStep) {
+    /** The special case where the smallest step is 1; NUMSTAIRCASES is initialized at
+     *  0 because a staircase must have at least 2 steps.
+     *  */
+    private static int numStaircases(int numBricks, int smallestStep) {
         int numStaircases = 0;
         for (int stepSize = smallestStep; stepSize <= numBricks / 2; stepSize++) {
             int bricksLeft = numBricks - stepSize;
             int nextStep = stepSize + 1;
-            numStaircases += numStaircases(bricksLeft, nextStep, 1);
+            numStaircases += numStaircasesHelper(bricksLeft, nextStep);
         }
         return numStaircases;
     }
 
-    /** A recursive helper which knows how many steps it has left and
-     *  requires its smallest step to be a certain height.
-     *  */
-    private static int numStaircases(int numBricks, int smallestStep, int numSteps) {
-        int maxSteps = maxStepsLeft(numBricks, smallestStep);
-        if (smallestStep > numBricks || maxSteps == 0) {
+    /** A recursive helper which requires its smallest step to be a certain height. */
+    private static int numStaircasesHelper(int numBricks, int smallestStep) {
+        if (smallestStep > numBricks) {
             return 0;
-        } else if (smallestStep * 2 >= numBricks) {
-            return 1;
         }
-        int numStaircases = 0;
+        int numStaircases = 1;
         for (int stepSize = smallestStep; stepSize <= numBricks / 2; stepSize++) {
             int bricksLeft = numBricks - stepSize;
             int nextStep = stepSize + 1;
-            numStaircases += numStaircases(bricksLeft, nextStep, numSteps + 1);
+            numStaircases += numStaircasesHelper(bricksLeft, nextStep);
         }
-        numStaircases++;
-        return numStaircases; // the last staircase comes from piling all bricks on the last step
-        // unique integer sets of multiple positive elements
+        return numStaircases;
     }
 
     /** Based on triangle number formula. For NUMBRICKS bricks, one can
@@ -108,13 +100,12 @@ public class Staircase {
         assertEquals(1, solution(3));
         assertEquals(1, solution(4));
         assertEquals(2, solution(5));
-        assertEquals(2, numStaircasesBase(69, 33));
-
+        assertEquals(2, numStaircases(69, 33));
     }
 
     @Test
     public void testStaircaseLong() {
-        assertEquals(487067745, solution(200)); // we're too big by 1 which means the first base case is off by 1
+        assertEquals(487067745, solution(200));
     }
 
 }
