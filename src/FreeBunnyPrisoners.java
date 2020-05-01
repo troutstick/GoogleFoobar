@@ -24,6 +24,18 @@ public class FreeBunnyPrisoners {
         return null;
     }
 
+    /** To calculate size K subsets of N length arrays. */
+    private static boolean[][] subsets(int n, int k, int numSubsets) {
+        boolean[][] ans = new boolean[numSubsets][];
+        for (int i = 0; i < ans.length; i++) {
+
+        }
+    }
+
+    private static boolean[] subsetHelper() {
+
+    }
+
     /** Return the number of ways to pull K elements from
      *  a set of N elements. */
     private static int numCombinations(int n, int k) {
