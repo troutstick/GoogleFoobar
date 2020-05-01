@@ -22,7 +22,13 @@ public class FreeBunnyPrisoners {
         return null;
     }
 
-    /** Return n factorial. */
+    /** Return the number of ways to pull K elements from
+     *  a set of N elements. */
+    private static int numCombinations(int n, int k) {
+        return factorial(n) / (factorial(k) * factorial(n - k));
+    }
+
+    /** Return N factorial. */
     private static int factorial(int n) {
         assert n >= 0;
         if (n == 0) {
@@ -37,6 +43,6 @@ public class FreeBunnyPrisoners {
         assertEquals(3628800, factorial(10));
         assertEquals(1, factorial(1));
         assertEquals(1, factorial(0));
-
+        assertEquals(126, numCombinations(9, 4));
     }
 }
