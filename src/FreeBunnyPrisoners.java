@@ -1,3 +1,8 @@
+import org.junit.*;
+import static org.junit.Assert.*;
+
+import java.util.*;
+
 /** @author Justin Thein
  *  My solution to the first of Problem 4 in Google Foobar. */
 public class FreeBunnyPrisoners {
@@ -15,5 +20,23 @@ public class FreeBunnyPrisoners {
         assert numReq >= 0 && numReq < 10;
 
         return null;
+    }
+
+    /** Return n factorial. */
+    private static int factorial(int n) {
+        assert n >= 0;
+        if (n == 0) {
+            return 1;
+        } else {
+            return n * factorial(n - 1);
+        }
+    }
+
+    @Test
+    public void factorialTest() {
+        assertEquals(3628800, factorial(10));
+        assertEquals(1, factorial(1));
+        assertEquals(1, factorial(0));
+
     }
 }
