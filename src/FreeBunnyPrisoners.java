@@ -18,7 +18,9 @@ public class FreeBunnyPrisoners {
     public static int[][] solution(int numBuns, int numReq) {
         assert numBuns > 0 && numBuns < 10;
         assert numReq >= 0 && numReq < 10;
-
+        assert numBuns >= numReq;
+        int numKeys = numCombinations(numBuns, numReq - 1);
+        int keysPerBunny = (numKeys * numReq) / numBuns;
         return null;
     }
 
