@@ -11,17 +11,11 @@ public class FreeBunnyPrisoners {
      *  and NUMREQ, the number of keys required to open a cell.
      *  Return a 2d int array whose elements are the set of keys
      *  owned by each bunny.
-     *
-     *  OR: Find a 2d array of which any NUMBUNS elements are
-     *  together able to produce all numbers from 0 through NUMREQ.
      *  */
-    public static Integer[][] solution(int numBuns, int numReq) {
+    public static int[][] solution(int numBuns, int numReq) {
         assert numBuns > 0 && numBuns < 10;
         assert numReq >= 0 && numReq < 10;
         assert numBuns >= numReq;
-        int numKeys = numCombinations(numBuns, numReq - 1);
-        int keysPerBunny = (numKeys * numReq) / numBuns;
-
 
         List<List<Integer>> bunniesList = new ArrayList<>();
         for (int i = 0; i < numBuns; i++) {
@@ -40,10 +34,11 @@ public class FreeBunnyPrisoners {
             }
         }
 
-        Integer[][] bunnies = new Integer[numBuns][];
-
+        // convert the list to an array
+        int[][] bunnies = new int[numBuns][];
         for (int i = 0; i < bunnies.length; i++) {
-            bunnies[i] = bunniesList.get(i).toArray(Integer[]::new);
+            List<Integer> convertToArr = bunniesList.get(i);
+            bunnies[i] = convertToArr.stream().mapToInt(x -> x).toArray();
         }
 
         return bunnies;
@@ -81,6 +76,7 @@ public class FreeBunnyPrisoners {
 
     /** Return the number of ways to pull K elements from
      *  a set of N elements. */
+    @Deprecated
     private static int numCombinations(int n, int k) {
         return factorial(n) / (factorial(k) * factorial(n - k));
     }
@@ -107,14 +103,6 @@ public class FreeBunnyPrisoners {
     }
 
     @Test
-    public void factorialTest() {
-        assertEquals(3628800, factorial(10));
-        assertEquals(1, factorial(1));
-        assertEquals(1, factorial(0));
-        assertEquals(126, numCombinations(9, 4));
-    }
-
-    @Test
     public void testSolutions() {
         int[][] test53 =
                 {{0, 1, 2, 3, 4, 5},
@@ -129,5 +117,31 @@ public class FreeBunnyPrisoners {
 
         int[][] test21 = {{0}, {0}};
         assertArrayEquals(test21, solution(2, 1));
+
+        // print out solution(9, 5)
+        int[][] solution95 = solution(9, 5);
+        for (int[] subset : solution95) {
+            System.out.print("[");
+            for (int num : subset) {
+                System.out.print(num + " ");
+            }
+            System.out.print("]\n");
+        }
+
+        // test if solution(9, 5) works
+        Set<Integer> intSet = new HashSet<>();
+        List<int[]> allSets = subsets(9, 5);
+        for (int[] subset : allSets) {
+            intSet.clear();
+            for (int elem : subset) {
+                int[] intsToAdd = solution95[elem];
+                for (int intToAdd : intsToAdd) {
+                    intSet.add(intToAdd);
+                }
+            }
+            for (int i = 0; i < 126; i++) {
+                assertTrue(intSet.contains(i));
+            }
+        }
     }
 }
