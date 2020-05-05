@@ -24,16 +24,32 @@ public class FreeBunnyPrisoners {
         return null;
     }
 
-    /** To calculate size K subsets of N length arrays. */
-    private static boolean[][] subsets(int n, int k, int numSubsets) {
-        boolean[][] ans = new boolean[numSubsets][];
-        for (int i = 0; i < ans.length; i++) {
+    /** Iteratively generate subsets of N elements containing K sets.
+     *  @author Chandra Prakesh
+     *  */
+    public List<int[]> subsets(int n, int k) {
+        List<int[]> combinations = new ArrayList<>();
+        int[] combination = new int[k];
 
+        // initialize with lowest lexicographic combination
+        for (int i = 0; i < k; i++) {
+            combination[i] = i;
         }
-    }
 
-    private static boolean[] subsetHelper() {
+        while (combination[k - 1] < n) {
+            combinations.add(combination.clone());
 
+            // generate next combination in lexicographic order
+            int t = k - 1;
+            while (t != 0 && combination[t] == n - k + t) {
+                t--;
+            }
+            combination[t]++;
+            for (int i = t + 1; i < k; i++) {
+                combination[i] = combination[i - 1] + 1;
+            }
+        }
+        return combinations;
     }
 
     /** Return the number of ways to pull K elements from
@@ -49,6 +65,17 @@ public class FreeBunnyPrisoners {
             return 1;
         } else {
             return n * factorial(n - 1);
+        }
+    }
+
+    @Test
+    public void printCombinations() {
+        List<int[]> subsets = subsets(5, 3);
+        for (int[] subset : subsets) {
+            for (int num : subset) {
+                System.out.print(num + " ");
+            }
+            System.out.print("\n");
         }
     }
 
