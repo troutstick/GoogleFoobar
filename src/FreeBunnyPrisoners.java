@@ -40,10 +40,10 @@ public class FreeBunnyPrisoners {
             }
         }
 
-        Integer[][] bunnies = new Integer[numBuns][keysPerBunny];
+        Integer[][] bunnies = new Integer[numBuns][];
 
         for (int i = 0; i < bunnies.length; i++) {
-            bunnies[i] = bunniesList.get(i).toArray(bunnies[i]);
+            bunnies[i] = bunniesList.get(i).toArray(Integer[]::new);
         }
 
         return bunnies;
@@ -124,8 +124,10 @@ public class FreeBunnyPrisoners {
                 {2, 4, 5, 7, 8, 9}};
         assertArrayEquals(test53, solution(5, 3));
 
-        int[][] test44 = {{4}, {4}, {4}, {4}};
+        int[][] test44 = {{0}, {1}, {2}, {3}};
         assertArrayEquals(test44, solution(4, 4));
 
+        int[][] test21 = {{0}, {0}};
+        assertArrayEquals(test21, solution(2, 1));
     }
 }
