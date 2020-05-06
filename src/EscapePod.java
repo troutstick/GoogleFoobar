@@ -75,7 +75,6 @@ public class EscapePod {
         Queue<Integer> queue = new LinkedList<>();
         queue.offer(start);
         visited[start] = true;
-        parent[start] = -1;
 
         while (!queue.isEmpty()) {
             int curr = queue.poll();
