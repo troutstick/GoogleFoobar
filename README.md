@@ -27,3 +27,9 @@ My solutions to Google Foobar problems.
   * Find the number of unique sets of positive integers where:
     * The set has at least 2 elements
     * The elements together sum to n
+    
+## Problem 4:
+### Free Bunny Prisoners
+  * Combinatorics problem: Find a way to construct N sets such that any K of them can produce ints from 0 to the binomial coefficient of N and K, but K - 1 sets would not.
+### Escape Pod
+  * One of my favorites! A max flow problem: Given a graph of flow capacities, find the max possible flow from a set of source nodes to a set of sink nodes.
