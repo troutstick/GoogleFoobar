@@ -24,7 +24,7 @@ public class DodgeTheLasers {
         if (n.equals(ZERO) || n.compareTo(ZERO) < 0) {
             return ZERO;
         }
-        BigDecimal nSqrt = (new BigDecimal(n)).multiply(_multiplicand);
+        BigDecimal nSqrt = (new BigDecimal(n)).multiply(MULTIPLICAND);
         BigInteger nPrime = nSqrt.toBigInteger();
         BigInteger
                 term1 = n.multiply(nPrime),
@@ -39,10 +39,10 @@ public class DodgeTheLasers {
     }
 
     /** Sqrt(2) - 1. */
-    private static BigDecimal _multiplicand;
+    private static final BigDecimal MULTIPLICAND;
     static {
         String _multiStr = Double.toString(Math.sqrt(2) - 1);
-        _multiplicand = new BigDecimal(_multiStr);
+        MULTIPLICAND = new BigDecimal(_multiStr);
     }
 
     private static final BigInteger
