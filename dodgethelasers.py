@@ -1,4 +1,3 @@
-from math import floor
 from math import sqrt
 
 """Python 2.7 implementation of Dodge The Lasers."""
