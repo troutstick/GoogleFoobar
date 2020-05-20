@@ -33,3 +33,7 @@ My solutions to Google Foobar problems.
   * Combinatorics problem: Find a way to construct N sets such that any K of them can produce ints from 0 to the binomial coefficient of N and K, but K - 1 sets would not.
 ### EscapePod.java
   * One of my favorites! A max flow problem: Given a graph of flow capacities, find the max possible flow from a set of source nodes to a set of sink nodes.
+  
+## Problem 5:
+### dodgethelasers.py
+  * Find the sum of `floor(i*sqrt(2))` for all integers i from 0 to n
